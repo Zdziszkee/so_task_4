@@ -5,8 +5,8 @@
 DIR = `basename $(CURDIR)`
 #------------------------
 NAME1 = a
-FILE_IN = input
-FILE_OUT = output
+FILE_IN = input.txt
+FILE_OUT = output.txt
 #----------------------
 EXEC1 = $(NAME1)
 OBJS1 = $(NAME1).o
@@ -31,7 +31,6 @@ EXECS = $(EXEC1)
 
 .PHONE: r1
 r1: $(EXEC1)
-	clear
 	./$(EXEC1) $(FILE_IN) $(FILE_OUT)
 	@echo "\n"
 	@diff -s $(FILE_IN) $(FILE_OUT)

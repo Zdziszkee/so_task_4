@@ -18,14 +18,14 @@ int main(int argc, char *argv[]) {
     char* inputPath = argv[1];
     char* outputPath = argv[2];
 
-    char buffer[1000]; //buffer size =  1kB
+    char buffer[100]; //buffer size =  1kB
     char termOut[1024];
 
     int filedes[2];
     int file, reading;
 
     size_t dataFrameProducer = 100; // producer max size 1000
-    size_t dataFrameConsumer = 100; // consumer max size 1000
+    size_t dataFrameConsumer = 80; // consumer max size 1000
 
     int statLock = 0;
 
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
                 sleep(rand() % 5);
 
                 /* read a file */
-                if ((reading = read(file, &buffer, dataFrameProducer)) == -1) {
+                if ((reading = read(file, buffer, dataFrameProducer)) == -1) {
                     perror("failed to read file");
                     exit(EXIT_FAILURE);
                 }
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
                 if (reading == 0) break;
 
                 /* write to file */
-                if (write(filedes[1], &buffer, reading) == -1) {
+                if (write(filedes[1], buffer, reading) == -1) {
                     perror("write error");
                     exit(EXIT_FAILURE);
                 }
